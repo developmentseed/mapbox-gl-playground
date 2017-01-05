@@ -36,8 +36,7 @@ app.model({
       })
       codeMirror.on('change', debounce(onChange, 300))
 
-      var style = action.style ? `mapbox://styles/${action.account}/${action.style}`
-        : experimentUrl(action.experiment)
+      var style = getStyle(action)
       map = window.map = new mapboxgl.Map({
         container: 'map',
         style: style,
@@ -77,7 +76,7 @@ var hash = null
 const mainView = (params, state, send, prevState) => {
   if (!map) { send('init', params) }
   if (hash && hash !== state.app.location) {
-    map.setStyle(experimentUrl(params.experiment))
+    map.setStyle(getStyle(params))
     codeMirror.setValue('null')
   }
   hash = state.app.location
@@ -103,7 +102,6 @@ const mainView = (params, state, send, prevState) => {
 app.router((route) => [
   route('/', mainView),
   route('/style/:account/:style', mainView),
-  route('/experiment/:experiment', mainView)
 ])
 
 const tree = app.start({ hash: true })
@@ -113,6 +111,7 @@ document.body.appendChild(codeContainer)
 
 function extend (o1, o2) { return Object.assign({}, o1, o2) }
 
-function experimentUrl (name) {
-  return name ? 'experiments/' + name + '.json' : 'mapbox://styles/mapbox/streets-v9'
+function getStyle (options) {
+  return options.style ? `mapbox://styles/${options.account}/${options.style}`
+    : 'mapbox://styles/mapbox/streets-v9'
 }
