@@ -1,0 +1,26 @@
+{
+  "name": "mapbox-gl-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo index.js:bundle.js",
+    "bundle": "browserify -t es2020 index.js > bundle.js"
+  },
+  "keywords": [],
+  "author": "Anand Thakker <vestibule@anandthakker.net> (http://anandthakker.net/)",
+  "license": "ISC",
+  "dependencies": {
+    "budo": "^8.3.0",
+    "choo": "^2.3.0",
+    "codemirror": "^5.16.0",
+    "lodash.debounce": "^4.0.6",
+    "mapbox-gl": "^0.29.0",
+    "mapbox-gl-style-spec": "github:mapbox/mapbox-gl-style-spec#e85407a377510acb647161de6be6357ab4f606dd",
+    "on-load": "^2.1.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "es2020": "^1.1.6"
+  }
+}
