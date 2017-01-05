@@ -36,7 +36,8 @@ app.model({
       })
       codeMirror.on('change', debounce(onChange, 300))
 
-      var style = action.style || experimentUrl(action.experiment)
+      var style = action.style ? `mapbox://styles/${action.account}/${action.style}`
+        : experimentUrl(action.experiment)
       map = window.map = new mapboxgl.Map({
         container: 'map',
         style: style,
@@ -101,7 +102,7 @@ const mainView = (params, state, send, prevState) => {
 
 app.router((route) => [
   route('/', mainView),
-  route('/style/:style', mainView),
+  route('/style/:account/:style', mainView),
   route('/experiment/:experiment', mainView)
 ])
 
